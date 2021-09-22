@@ -1,0 +1,107 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/global.css' %}" />
+    <link rel="stylesheet" href="{% static 'fa/css/all.min.css' %}" />
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;200;300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <title>Editar Pago</title>
+  </head>
+
+  <body class="vw-100 vh-100" style="">
+    {% include "nav.html" %}
+
+    <div
+      class="container w-100 d-flex justify-content-center align-items-center"
+    >
+
+      <div class="card text-dark text-center mt-3 w-75">
+        <div class="card-header">
+          <h5 class="card-text">
+            Datos pago
+        </h5>
+        </div>
+        <div class="card-body ">
+        <div class="card-text">Llene todos los datos de la <strong>PAGO</strong> </div>
+         <form method="POST" class="text-left">
+          {% csrf_token %}
+            </br>
+
+             <div class="form-group">
+              <label for="exampleInputPassword1">Clientes</label>
+               <select class="form-select" aria-label="Default select example" id="floatingInput" name="cliente">
+            <option>Seleccionar Cliente</option>
+            {% for cliente in list_clientes  %}
+            
+              {% if pago.cliente.id == cliente.id %}
+               <option selected value={{cliente.id}}>{{cliente.user.first_name}}</option>
+               {% else %}
+               <option value={{cliente.id}}>{{cliente.user.first_name}}</option>
+              {% endif %}
+            {% endfor %}
+          
+          </select>
+            </div> 
+            
+            <div>  
+              <div class="form-group">
+              <label for="exampleInpusa">Valor cancelado</label>
+              <input value="{{pago.valor}}"    class="form-control" required id="valor" name="valor">
+            </div>
+
+
+              <div class="form-group">
+              <label for="exampleInpusa">Fecha de pago</label>
+              <input value="{{pago.fecha_pago}}"   class="form-control"
+              data-date-format="mm/dd/yyyy"
+            
+              required id="start" class="datepicker" name="fecha_pago">
+            </div>
+ 
+            </br>
+            <div class="text-center">
+            <a href="/registro-pagos/" type="submit" class="btn btn-danger mr-3">REGRESAR</a>
+            <input required value="GUARDAR DATOS" type="submit" class="btn btn-primary text-center">
+            </div>
+
+           
+              
+           
+            {% if error %}
+                {{error}}
+            {% endif %}
+          </form>
+         
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+
+
+<link href="https://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css" rel="stylesheet" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<script src="https://code.jquery.com/ui/1.11.0/jquery-ui.min.js"></script>
+
+
+<script src="https://trentrichardson.com/examples/timepicker/jquery-ui-timepicker-addon.js"></script>
+
+
+<script>
+ 
+
+$("#start").datepicker();
+</script>
+

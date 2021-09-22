@@ -1,0 +1,56 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/global.css' %}" />
+    <link rel="stylesheet" href="{% static 'fa/css/all.min.css' %}" />
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;200;300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <title>Tecnico - Eliminar</title>
+  </head>
+
+  <body class="vw-100 vh-100" style="">
+    {% include "nav.html" %}
+
+    <div
+      class="container w-100 d-flex justify-content-center align-items-center"
+    >
+
+      <div class="card text-dark text-center mt-3 w-75">
+        <div class="card-header">
+        <h5 class="card-text">
+            Datos Tecnico
+        </h5>
+        </div>
+        <div class="card-body ">
+          <div class="card-text">Se eliminara el tecnico: <strong>{{tecnico.user.first_name}} </strong> </div>
+         <form method="POST" class="text-left">
+          {% csrf_token %}
+            <div class="form-group">
+             
+            </br>
+            <div class="text-center">
+            <a href="/tecnicos/" type="submit" class="btn btn-danger mr-3">REGRESAR</a>
+            <input value="ELIMINAR TECNICO" type="submit" class="btn btn-primary text-center">
+            </div>
+              
+           
+            {% if error %}
+                {{error}}
+            {% endif %}
+          </form>
+         
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

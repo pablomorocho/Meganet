@@ -1,0 +1,123 @@
+{% load static %} {% include "../header.html" %} {% include "../nav.html" %}
+
+<body>
+
+    <div class="table-responsive mt-4" style="margin-top:25px;padding:50px !important">
+        <a href="/nueva-agencia/" class="btn btn-primary mb-4">CREAR AGENCIA</a
+                >
+          <table class="table table-striped table-advance table-hover " style="width:100%" id="datatable">
+              <thead class="text-uppercase bg-info">
+                  <tr class="text-white">
+                      <th class="text-center">Agencia</th>
+                      <th class="text-center">Direccion</th>
+                      <th class="text-center">Provincia</th>
+                      <th class="text-center">Canton</th>
+                      <th class="text-center">Correo</th>                  
+                      <th class="text-center"><i class="fas fa-cog"></i></th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {% if list_agencias %}
+                  {% for p in list_agencias %}
+                  <tr>
+                      <td class="text-center">{{p.nombre}}</td>
+                      <td class="text-center">{{p.direccion}}</td>
+                      <td class="text-center">{{p.provincia}}</td>
+                      <td class="text-center">{{p.canton}}</td>
+                      <td class="text-center">{{p.correo}}</td>
+                     
+                      <td class="text-center">
+                          <div class="btn-group">
+                          
+                
+               
+                    <a
+                      href="/editar-agencia/{{p.id}}"
+                      class="btn btn-primary btn-sm"
+                      >EDITAR AGENCIA</a
+                    >
+                    <a
+                      href="/eliminar-agencia/{{p.id}}"
+                      class="btn btn-danger btn-sm"
+                      >ELIMINAR AGENCIA</a
+                    >
+                
+                          </div>
+                      </td> 
+                  </tr>
+                  {% endfor %}
+                  {% else %}
+                  <h1>No hay registro de agencias</h1>
+                  {% endif %}
+                  <br>
+              </tbody>
+          </table>
+      </div>
+      
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+
+
+  <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+  <script src="{% static 'js/pantallap/lib/bootstrap/js/bootstrap.min.js' %}"></script>
+  
+  <script src="{% static 'pantallap/lib/jquery.dcjqaccordion.2.7.js' %}"></script>
+  <script src="{% static 'pantallap/lib/jquery.scrollTo.min.js' %}"></script>
+  <script src="{% static 'pantallap/lib/jquery.nicescroll.js' %}"></script>
+  <script src="{% static 'pantallap/lib/google-maps/maplace.js' %}"></script>
+  <script src="{% static 'pantallap/lib/google-maps/data/points.js' %}"></script>
+  <script src="{% static 'pantallap/lib/jquery.sparkline.js' %}"></script>
+  <script src="{% static 'pantallap/lib/common-scripts.js' %}"></script>
+  <script src="{% static 'pantallap/lib/gritter/js/jquery.gritter.js' %}"></script>
+  <script src="{% static 'pantallap/lib/gritter-conf.js' %}"></script>
+  <script src="{% static 'pantallap/lib/sparkline-chart.js' %}"></script>
+  
+
+  <script src="http://maps.google.com/maps/api/js?sensor=false&libraries=geometry&v=3.7"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>  
+    <script src="{% static 'lib/sweetalert2-9.10.0/sweetalert2.all.min.js' %}"></script>
+    <script src="{% static 'lib/adminlte-3.0.4/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'lib/adminlte-3.0.4/js/adminlte.min.js' %}"></script>  
+    <script src="{% static 'main.js' %}"></script>  
+    <script src="{% static 'lib/jquery-confirm-v3.3.4/jquery-confirm.min.js' %}"></script>  
+  
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+  
+  
+<link href="https://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css" rel="stylesheet" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<script src="https://code.jquery.com/ui/1.11.0/jquery-ui.min.js"></script> 
+  <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.10.25/af-2.3.7/b-1.7.1/rr-1.2.8/sp-1.3.0/datatables.min.js"></script>
+
+
+<script src="https://trentrichardson.com/examples/timepicker/jquery-ui-timepicker-addon.js"></script>
+  <script>
+    $(document).ready( function () {
+        $('#datatable').DataTable( {
+          "aLengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
+          "language": {
+            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json",
+            "lengthMenu": "Mostrar _MENU_ ",
+            "zeroRecords": "Registro no encontrado",
+            "info": "Mostrando página _PAGE_ de _PAGES_",
+            "infoEmpty": "No hay registros disponibles",
+            "infoFiltered": "(filtered from _MAX_ registros totales)",
+            "pagingType": "full_numbers",
+            "search": "Buscar:",            
+          }
+      } );
+    } );
+</script>
+  </body>
+</html>

@@ -1,0 +1,208 @@
+{% load static %}
+ <title>{% block titulo %}Lista de pagos {% endblock titulo %}</title>
+{% include "../header.html" %}
+    {% include "nav.html" %}
+
+  
+  <body class="vw-100 vh-100" style="">
+
+    <div
+      class="container w-100 d-flex justify-content-center align-items-center"
+    >
+
+    
+
+      <div class="card text-dark text-center mt-3 w-75">
+       <div class="card-header">
+          <h5 class="card-text">
+            Datos pago
+        </h5>
+        </div>
+        <div class="card-body ">
+        <div class="card-text">Llene todos los datos de la <strong>PAGO</strong> </div>
+        <br/>
+         <form method="GET">
+  <div class="input-group">
+    <input type="text" class="form-control" name="q" placeholder="Nombre del Cliente">
+    <div class="input-group-btn">
+      <button class="btn btn-default" type="submit">
+        <i class="fa fa-search"></i>
+      </button>
+    </div>
+  </div>
+</form>
+         <form id="form" action="/nuevo-pago/" method="POST" class="text-left">
+          {% csrf_token %}
+            </br>
+             <div class="form-group">
+              <label for="exampleInputPassword1">Clientes</label>
+               <select id="clienteChange" class="form-select" aria-label="Default select example" id="floatingInput" name="cliente">
+            <option selected>Seleccionar cliente</option>
+         
+            {% for cliente in list_clientes  %}
+            <option value={{cliente.id}}>{{cliente.user.first_name}}</option>
+            {% endfor %}
+          
+          </select>
+            </div>  
+              <label for="exampleInpusa">Valor cancelado</label>
+        
+              <input  type="decimal" class="form-control" required id="valor" name="valor">
+              <div class="form-group">
+            </div>
+              <div class="form-group">
+              <label for="exampleInpusa">Fecha de pago</label>
+              <input value="{{fecha}}" class="form-control"
+              data-date-format="mm/dd/yyyy"
+            
+              required id="start" class="datepicker" name="fecha_pago">
+            </div>
+ 
+            </br>
+            <div class="text-center">
+            <a href="/registro-pagos/" type="submit" class="btn btn-danger mr-3">REGRESAR</a>
+            <input required value="CREAR REGISTRO PAGO" type="submit" class="btn btn-primary text-center">
+            </div>
+
+           
+              
+           
+            {% if error %}
+                {{error}}
+            {% endif %}
+          </form>
+         
+        </div>
+      </div>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.js"></script>
+<link href="https://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css" rel="stylesheet" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<script src="https://code.jquery.com/ui/1.11.0/jquery-ui.min.js"></script>
+ <script src="/static/lib/sweetalert2-9.10.0/sweetalert2.all.min.js"></script>
+
+<script src="https://trentrichardson.com/examples/timepicker/jquery-ui-timepicker-addon.js"></script>
+  </body>
+</html>
+
+<link href="https://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css" rel="stylesheet" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<script src="https://code.jquery.com/ui/1.11.0/jquery-ui.min.js"></script>
+
+
+<script src="https://trentrichardson.com/examples/timepicker/jquery-ui-timepicker-addon.js"></script>
+
+
+<script>
+
+  console.log(location.host)
+  let date= new Date()
+  var disableddates = ["20-02-2017", "21-02-2017"];
+
+function DisableSpecificDates(date) {
+  var string = jQuery.datepicker.formatDate('dd-mm-yy', date);
+  return [disableddates.indexOf(string) == -1];
+}
+
+$("#start").datepicker({
+ 
+});
+</script>
+
+<script>
+       console.log("sjasbwdasjk")
+    $(function(){
+
+
+      $("#clienteChange").change(async function(e){
+            let data = JSON.stringify({
+    id: $(this).val(),
+   
+})
+     var token=$("[name=csrfmiddlewaretoken]").val()
+    
+let response = await fetch("/obtener_datos/", {
+    method: 'POST',
+    body: data,
+    headers: { 'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json',
+        "X-CSRFToken": token },
+})
+ let datos = await response.json();
+ 
+          console.log(datos)
+           $("#valor").val(datos.costo).change();
+      })
+        function messageError(text){
+            Swal.fire({
+            title:'ERRROR',
+            html: '<pre style="text-align: initial !important;">' + text + '</pre>',
+            icon:'error',
+            confirmButtonColor:'#d33',
+            confirmButtonText:'Aceptar'
+        })}
+        var url=$("form").attr("action")
+        var token=$("[name=csrfmiddlewaretoken]").val()
+
+ function messageSuccess(text){
+            Swal.fire({
+            title:'EXITO',
+            html: '<pre style="text-align: initial !important;">' + text + '</pre>',
+            icon:'success',
+            confirmButtonColor:'green',
+            confirmButtonText:'Aceptar'
+        }).then((result) => {
+  /* Read more about isConfirmed, isDenied below */
+  if (result.isConfirmed) {
+      location.href=location.protocol+"//"+location.host+"/registro-pagos/";
+  } 
+})
+        }
+        $("#form").submit(function(e){
+            e.preventDefault()
+            let formdata=$("form").serializeArray()
+            console.log(formdata)
+            $.ajax({
+                method: "POST",
+                url: url,
+                data: formdata,
+                headers:{'X-CSRFToken':token},
+                }).done(function(r,textStatus,xhr){
+                    console.log(r)
+                    console.log(textStatus)
+                    console.log(xhr)
+                if(xhr.status==200){
+                     messageSuccess("Se creo exitosamente")
+                      
+                }else{
+                    console.log("text",textStatus)
+                    messageError(textStatus);
+                }
+               
+            }).fail(function(error){               
+                let ar=JSON.parse(error.responseText)              
+                console.log(ar)               
+                let obe = Object.values(ar);
+             
+                let mensaje=""
+                for (var k in obe) {
+                    if ((Number(k) + 1) === obe.length) {
+                        mensaje+="- "+obe[k][0]
+                    }else{
+                    mensaje+= "- "+obe[k][0]+"\n"
+
+                    }
+                    
+                }
+                
+               
+                 messageError(mensaje)
+                
+            });
+        })
+    })
+
+     
+</script>
